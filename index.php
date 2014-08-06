@@ -7,19 +7,14 @@
 	<link rel="shortcut icon" href="favicon.ico" type="image/icon">
 </head>
 <body>
-<div id="form">
+<div id="guest">
 	<h2>Гостевуха</h2>
-		<form action="backend.php" method="GET">
-			<div class="block">
+		<form id="form" action="backend.php" method="GET">
 				<input class="inp" type="text" name="name" placeholder="Введите имя"/><br/>
 				<input class="inp" type="text" name="email" placeholder="Введите e-mail"/><br/>
-				<textarea class="txt" name="msg" value="" placeholder="Введите сообщение"></textarea><br/>
-					<div class="inp2">
-						<input type="submit"/>
-						<input type="submit" name="clear" value="Очистить"/>
-					</div>
+				<textarea name="msg" placeholder="Введите сообщение"></textarea><br/>
+				<input type="submit"/>
 				<input type="hidden" name="action" value="add_record">
-			</div>
 		</form>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
