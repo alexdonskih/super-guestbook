@@ -10,11 +10,11 @@
 <div id="guest">
 	<h2>Гостевуха</h2>
 		<form id="form" action="backend.php" method="GET">
-				<input class="inp" type="text" name="name" placeholder="Введите имя"/><br/>
-				<input class="inp" type="text" name="email" placeholder="Введите e-mail"/><br/>
-				<textarea name="msg" placeholder="Введите сообщение"></textarea><br/>
-				<input type="submit"/>
-				<input type="hidden" name="action" value="add_record">
+			<input type="text" name="name" placeholder="Введите имя"/><br/>
+			<input type="text" name="email" placeholder="Введите e-mail"/><br/>
+			<textarea name="msg" placeholder="Введите сообщение"></textarea><br/>
+			<input type="submit"/>
+			<input type="hidden" name="action" value="add_record">
 		</form>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
