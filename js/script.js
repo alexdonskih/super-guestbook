@@ -1,20 +1,22 @@
 $(document).ready(function(){
 	// your js/jquery code here
-	document.getElementById('submit').onclick=function(event) {
-		var name_field = document.getElementById('name');
+	var submit_form = document.getElementById('submit');
+	submit_form.onclick=function(event) {
+		var name_field  = document.getElementById('name');
 		var email_field = document.getElementById('email');
-		var textarea = document.getElementById('msg');
+		var textarea    = document.getElementById('msg');
+
+		var check = "Пожалуйста, заполните: ";
 		if(name_field.value == '') {
-			alert('Заполните имя!');
-			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
+			check = check + ' Имя ' + ',';
 		}
 		if (email_field.value == '') {
-			alert('Заполните email!');
-			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
+			check = check + ' E-mail ' + ',';
 		}
-		if (textarea.value == '') {
-			alert('Заполните текст!');
-			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
+		if(textarea.value == '') {
+			check = check + ' Текст ' + ',';
 		}
+		alert(check);
+		event.preventDefault ? event.preventDefault() : (event.returnValue=false);
 	}
 });
