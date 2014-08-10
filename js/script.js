@@ -6,7 +6,7 @@ $(document).ready(function(){
 		var email_field = document.getElementById('email');
 		var textarea    = document.getElementById('msg');
 
-		var check = "Пожалуйста, заполните: ";
+		var check = "";
 		if(name_field.value == '') {
 			check = check + ' Имя ' + ',';
 		}
@@ -16,7 +16,10 @@ $(document).ready(function(){
 		if(textarea.value == '') {
 			check = check + ' Текст ' + ',';
 		}
-		alert(check);
-		event.preventDefault ? event.preventDefault() : (event.returnValue=false);
+
+		if(check != '') {
+			alert('Пожалуйста, введите' + check);
+			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
+		}
 	}
 });
