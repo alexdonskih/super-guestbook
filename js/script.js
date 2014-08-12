@@ -6,19 +6,19 @@ $(document).ready(function(){
 		var email_field = document.getElementById('email');
 		var textarea    = document.getElementById('msg');
 
-		var check = "";
+		var check = '';
+		var arr1 = [];
 		if(name_field.value == '') {
-			check = check + ' Имя ' + ',';
+			check = arr1.push("Имя");
 		}
 		if (email_field.value == '') {
-			check = check + ' E-mail ' + ',';
+			check = arr1.push("Email");
 		}
-		if(textarea.value == '') {
-			check = check + ' Текст ' + ',';
+		if (textarea.value == '') {
+			check = arr1.push("Текст");
 		}
-
 		if(check != '') {
-			alert('Пожалуйста, введите' + check);
+			alert('Пожалуйста, введите ' + arr1.join() + '.');
 			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
 		}
 	}
