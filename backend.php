@@ -3,7 +3,7 @@ $data = $_GET;
 switch($data['action']){
 	case 'add_record':
 
-		// добавляем в файл
+		// задаем основные переменные
 		$name  = trim(strip_tags($data['name']));
 		$email = trim(strip_tags($data['email']));
 		$txt   = trim(strip_tags($data['msg']));
