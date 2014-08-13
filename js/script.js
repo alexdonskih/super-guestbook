@@ -17,7 +17,7 @@ $(document).ready(function(){
 			check.push("Текст");
 		}
 		if(check.length != 0) {
-			alert('Пожалуйста, введите ' + check.join() + '.');
+			alert('Пожалуйста, введите ' + check.join(', ') + '.');
 			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
 		}
 	}
