@@ -6,20 +6,20 @@ $(document).ready(function(){
 		var email_field = document.getElementById('email');
 		var textarea    = document.getElementById('msg');
 
-		var check = '';
-		var arr1 = [];
+		var check = [];
 		if(name_field.value == '') {
-			check = arr1.push("Имя");
+			check.push("Имя");
 		}
 		if (email_field.value == '') {
-			check = arr1.push("Email");
+			check.push("Email");
 		}
 		if (textarea.value == '') {
-			check = arr1.push("Текст");
+			check.push("Текст");
 		}
-		if(check != '') {
-			alert('Пожалуйста, введите ' + arr1.join() + '.');
+		if(check.length != 0) {
+			alert('Пожалуйста, введите ' + check.join() + '.');
 			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
 		}
 	}
 });
+
