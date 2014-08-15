@@ -34,8 +34,41 @@ switch($data['action']){
 		fclose($fp);
 		}
 	break;
-	case 'otheraction':
+	case 'get_messages':
+		$messages = array (
+			'file_not_found'  => 'Файл не найден',
+			'fread_error'     => 'Файл не может быть прочитан',
+		);
+		$filename = 'book.txt';
 
-		// do other stuff
+		// проверка существования файла
+		if(file_exists($filename)) {
+
+			//проверка читабельности файла
+			if(is_readable($filename)) {
+
+				//открываем файл и помещаем его содержимое в массив
+				$fp = fopen($filename, 'r+');
+				$content = file($filename);
+					if(is_array($content)) {
+
+						// помещаем элементы массива в список
+						echo '<ul>';
+
+						// проходимся по массиву и выводим форматированный результат
+						foreach($content as $line) {
+							list($date, $email, $name, $msg) = explode('|', $line);
+							echo '<li>';
+							echo $date.' | '.$email.' | '.$name.' | '.$msg;
+							echo '</li>';
+						}
+						echo '</ul>';
+					}
+			}else {
+				echo $messages['fread_error'];
+			}
+		} else {
+			echo $messages['file_not_found'];
+		}
 	break;
 }
