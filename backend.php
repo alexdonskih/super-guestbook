@@ -7,6 +7,7 @@ switch($data['action']){
 		$name     = trim(strip_tags($data['name']));
 		$email    = trim(strip_tags($data['email']));
 		$txt      = trim(strip_tags($data['msg']));
+		$date     = date('Y-m-d G:i:s');
 		$redir    = '<meta http-equiv="refresh" content="1; url='.$_SERVER['HTTP_REFERER'].'">';
 
 		$messages = array (
@@ -21,7 +22,7 @@ switch($data['action']){
 			echo $messages['form_error'];
 
 		} else {
-			$msg = $name.' '.$email.' '.$txt."\n";
+			$msg = $date.'|'.$email.'|'.$name.'|'.$txt."\n";
 
 		// открытие и запись файла
 			$fp = fopen('book.txt', 'a+');
