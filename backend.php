@@ -51,9 +51,7 @@ switch($data['action']){
 					if(is_array($content)) {
 						foreach($content as $line) {
 							list($date, $email, $name, $msg) = explode('|', $line);
-      						echo "<p><strong>{$name}</strong> {$email}</p>";
-      						echo "<p>{$date}</p>";
-      						echo "{$msg}"."<hr/>";
+							echo "<p><strong>{$name}</strong> {$email}</p><p>{$date}</p>{$msg}<hr/>";
 						}
 
 					}
