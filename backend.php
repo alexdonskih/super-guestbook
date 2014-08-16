@@ -1,5 +1,13 @@
 ﻿<?php
 $data = $_GET;
+$messages = array (
+	'form_error'       => 'Пожалуйста, заполните все формы корректно',
+	'msg_send'         => 'Ваше сообщение успешно отправлено',
+	'file_write_error' => 'Ошибка записи в файл',
+	'file_not_found'   => 'Файл не найден',
+	'fread_error'      => 'Файл не может быть прочитан'
+);
+$filename = 'book.txt';
 switch($data['action']){
 	case 'add_record':
 
@@ -10,11 +18,6 @@ switch($data['action']){
 		$date     = date('Y-m-d G:i:s');
 		$redir    = '<meta http-equiv="refresh" content="1; url='.$_SERVER['HTTP_REFERER'].'">';
 
-		$messages = array (
-			'form_error'       => 'Пожалуйста, заполните все формы корректно',
-			'msg_send'         => 'Ваше сообщение успешно отправлено',
-			'file_write_error' => 'Ошибка записи в файл'
-		);
 		echo $redir;
 
 		// проверка на пустоту
@@ -25,7 +28,7 @@ switch($data['action']){
 			$msg = $date.'|'.$email.'|'.$name.'|'.$txt."\n";
 
 		// открытие и запись файла
-			$fp = fopen('book.txt', 'a+');
+			$fp = fopen($filename, 'a+');
 			if(fwrite($fp, $msg)){
 				echo $messages['msg_send'];
 			} else {
@@ -34,8 +37,30 @@ switch($data['action']){
 		fclose($fp);
 		}
 	break;
-	case 'otheraction':
 
-		// do other stuff
+	case 'get_messages':
+
+		// проверка существования файла
+		if(file_exists($filename)) {
+
+			//проверка читабельности файла
+			if(is_readable($filename)) {
+
+				//открываем файл и помещаем его содержимое в массив
+				$content = file($filename);
+					if(is_array($content)) {
+						$content = array_reverse($content);
+						foreach($content as $line) {
+							list($date, $email, $name, $msg) = explode('|', $line);
+							echo "<p><strong>{$name}</strong> {$email}</p><p>{$date}</p>{$msg}<hr/>";
+						}
+
+					}
+			}else {
+				echo $messages['fread_error'];
+			}
+		} else {
+			echo $messages['file_not_found'];
+		}
 	break;
 }
