@@ -49,6 +49,7 @@ switch($data['action']){
 				//открываем файл и помещаем его содержимое в массив
 				$content = file($filename);
 					if(is_array($content)) {
+						$content = array_reverse($content);
 						foreach($content as $line) {
 							list($date, $email, $name, $msg) = explode('|', $line);
 							echo "<p><strong>{$name}</strong> {$email}</p><p>{$date}</p>{$msg}<hr/>";
