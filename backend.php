@@ -28,7 +28,7 @@ switch($data['action']){
 			$msg = $date.'|'.$email.'|'.$name.'|'.$txt."\n";
 
 		// открытие и запись файла
-			$fp = fopen('book.txt', 'a+');
+			$fp = fopen($filename, 'a+');
 			if(fwrite($fp, $msg)){
 				echo $messages['msg_send'];
 			} else {
