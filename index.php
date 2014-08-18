@@ -16,14 +16,7 @@
 			<input id="submit" type="submit"/>
 			<input type="hidden" name="action" value="add_record">
 		</form>
-		<?
-		if(!empty($_SERVER['HTTP_HOST'])) {
-			$url = 'http://'.$_SERVER['HTTP_HOST'].'/backend.php?action=get_messages';
-			$txt = file_get_contents($url);
-			echo $txt;
-		}
-		?>
-</div>
+		<?=file_get_contents('http://'.$_SERVER['HTTP_HOST'].'/backend.php?action=get_messages')?>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
