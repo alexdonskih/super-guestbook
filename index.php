@@ -16,6 +16,7 @@
 			<input id="submit" type="submit"/>
 			<input type="hidden" name="action" value="add_record">
 		</form>
+		<?=file_get_contents($_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].str_replace('index.php', '', $_SERVER['PHP_SELF']).'/backend.php?action=get_messages');?>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
