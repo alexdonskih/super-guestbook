@@ -16,7 +16,22 @@ $messages = array (
 	'mysqli_query_err' => 'Ошибка формирования запроса к базе данных',
 	'mysqli_table_cr'  => 'Первый запуск скрипта. Таблица успешно создана'
 );
-$filename = 'book.txt';
+$dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die($messages['mysqli_cn_error']);
+$sql = mysqli_query($dbc, "SHOW TABLES FROM questbook");
+if(!sql) {
+	$create_query = "CREATE TABLE messages(
+ 	`id` INT(11) NOT NULL AUTO_INCREMENT ,
+ 	`name` VARCHAR( 25 ) NOT NULL DEFAULT  '',
+ 	`email` VARCHAR( 50 ) NOT NULL DEFAULT  '',
+ 	`msg` TEXT,
+ 	`datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+	PRIMARY KEY ( `id` )
+	)";
+	mysqli_query($dbc, $create_query);
+	echo $messages['mysqli_table_cr'];
+	mysqli_close($dbc);
+}
+
 switch($data['action']){
 	case 'add_record':
 
