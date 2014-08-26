@@ -43,20 +43,21 @@ switch($data['action']){
 		echo $redir;
 
 		// проверка на пустоту
-		if(empty($name) || empty($email) || empty($txt)) {
+		if(empty($form_name) || empty($form_email) || empty($form_msg)) {
 			echo $messages['form_error'];
 
 		} else {
-			$msg = $date.'|'.$email.'|'.$name.'|'.$txt."\n";
+			// коннект к базе данных и запись в таблицу
+			$dbc1 = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die($messages['mysqli_cn_error']);
+			$query = "INSERT INTO messages (name, email, msg) VALUES ('$form_name', '$form_email', '$form_msg')";
+			$sql1 = mysqli_query($dbc1, $query);
 
-		// открытие и запись файла
-			$fp = fopen($filename, 'a+');
-			if(fwrite($fp, $msg)){
-				echo $messages['msg_send'];
-			} else {
-				echo $messages['file_write_error'];
-			}
-		fclose($fp);
+		if($sql1) {
+			echo $messages['msg_send'];
+		}else {
+			echo $messaqes['file_write_error'];
+		}
+		mysqli_close($dbc1);
 		}
 	break;
 
