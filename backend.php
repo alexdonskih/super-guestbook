@@ -36,12 +36,10 @@ switch($data['action']){
 	case 'add_record':
 
 		// задаем основные переменные
-		$name     = trim(strip_tags($data['name']));
-		$email    = trim(strip_tags($data['email']));
-		$txt      = trim(strip_tags($data['msg']));
-		$date     = date('Y-m-d G:i:s');
-		$redir    = '<meta http-equiv="refresh" content="1; url='.$_SERVER['HTTP_REFERER'].'">';
-
+		$form_name   = trim(strip_tags($data['name']));
+		$form_email  = trim(strip_tags($data['email']));
+		$form_msg    = trim(strip_tags($data['msg']));
+		$redir       = '<meta http-equiv="refresh" content="1; url='.$_SERVER['HTTP_REFERER'].'">';
 		echo $redir;
 
 		// проверка на пустоту
