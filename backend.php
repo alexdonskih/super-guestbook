@@ -11,7 +11,10 @@ $messages = array (
 	'msg_send'         => 'Ваше сообщение успешно отправлено',
 	'file_write_error' => 'Ошибка записи в файл',
 	'file_not_found'   => 'Файл не найден',
-	'fread_error'      => 'Файл не может быть прочитан'
+	'fread_error'      => 'Файл не может быть прочитан',
+	'mysqli_cn_error'  => 'Ошибка соединения с базой данных',
+	'mysqli_query_err' => 'Ошибка формирования запроса к базе данных',
+	'mysqli_table_cr'  => 'Первый запуск скрипта. Таблица успешно создана'
 );
 $filename = 'book.txt';
 switch($data['action']){
