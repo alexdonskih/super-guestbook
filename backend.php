@@ -63,27 +63,19 @@ switch($data['action']){
 
 	case 'get_messages':
 
-		// проверка существования файла
-		if(file_exists($filename)) {
+		$dbc2 = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die($messages['mysqli_cn_error']);
+		$query1 = "SELECT id, name, email, msg, UNIX_TIMESTAMP(datetime) as dt FROM messages ORDER BY id DESC LIMIT 5";
+		$sql2 = mysqli_query($dbc2, $query1) or die($messages['mysqli_query_err']);
 
-			//проверка читабельности файла
-			if(is_readable($filename)) {
+		//организуем вывод данных
+		while($row   = mysqli_fetch_assoc($sql2)) {
+			$table_name  = $row['name'];
+			$table_email = $row['email'];
+			$table_msg   = $row['msg'];
+			$table_date  = date('d-m-Y H:i:s',$row['dt']);
 
-				//открываем файл и помещаем его содержимое в массив
-				$content = file($filename);
-					if(is_array($content)) {
-						$content = array_reverse($content);
-						foreach($content as $line) {
-							list($date, $email, $name, $msg) = explode('|', $line);
-							echo "<p><strong>{$name}</strong> {$email}</p><p>{$date}</p>{$msg}<hr/>";
-						}
-
-					}
-			}else {
-				echo $messages['fread_error'];
-			}
-		} else {
-			echo $messages['file_not_found'];
+			echo "<p><strong>{$table_name}</strong> {$table_email}</p><p>{$table_date}</p>{$table_msg}<hr/>";
 		}
+		mysqli_close($dbc2);
 	break;
 }
