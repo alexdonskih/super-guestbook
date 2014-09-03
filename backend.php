@@ -52,7 +52,7 @@ switch($data['action']){
 		if($sql) {
 			echo $messages['msg_send'];
 		}else {
-			echo $messaqes['file_write_error'];
+			echo $messaqes['msg_send_error'];
 		}
 		mysqli_close($dbc);
 		}
