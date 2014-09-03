@@ -15,9 +15,9 @@ $messages = array (
 	'mysqli_table_cr'  => 'Первый запуск скрипта. Таблица успешно создана'
 );
 $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die($messages['mysqli_cn_error']);
-$sql = mysqli_query($dbc, "SHOW TABLES FROM questbook");
-if(!sql) {
-	$create_query = "CREATE TABLE messages(
+
+//условие проверки существования таблицы
+$query = "CREATE TABLE messages IF NOT EXISTS(
  	`id` INT(11) NOT NULL AUTO_INCREMENT ,
  	`name` VARCHAR( 25 ) NOT NULL DEFAULT  '',
  	`email` VARCHAR( 50 ) NOT NULL DEFAULT  '',
@@ -25,10 +25,10 @@ if(!sql) {
  	`datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
 	PRIMARY KEY ( `id` )
 	)";
-	mysqli_query($dbc, $create_query);
-	echo $messages['mysqli_table_cr'];
-	mysqli_close($dbc);
-}
+
+$sql = mysqli_query($dbc, $query);
+echo $messages['mysqli_table_cr'];
+mysqli_close($dbc);
 
 switch($data['action']){
 	case 'add_record':
