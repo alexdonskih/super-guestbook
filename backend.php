@@ -46,27 +46,25 @@ switch($data['action']){
 
 		} else {
 			// коннект к базе данных и запись в таблицу
-			$dbc1 = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die($messages['mysqli_cn_error']);
 			$query = "INSERT INTO messages (name, email, msg) VALUES ('$form_name', '$form_email', '$form_msg')";
-			$sql1 = mysqli_query($dbc1, $query);
+			$sql = mysqli_query($dbc, $query);
 
-		if($sql1) {
+		if($sql) {
 			echo $messages['msg_send'];
 		}else {
 			echo $messaqes['file_write_error'];
 		}
-		mysqli_close($dbc1);
+		mysqli_close($dbc);
 		}
 	break;
 
 	case 'get_messages':
 
-		$dbc2 = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die($messages['mysqli_cn_error']);
-		$query1 = "SELECT id, name, email, msg, UNIX_TIMESTAMP(datetime) as dt FROM messages ORDER BY id DESC LIMIT 5";
-		$sql2 = mysqli_query($dbc2, $query1) or die($messages['mysqli_query_err']);
+		$query = "SELECT id, name, email, msg, UNIX_TIMESTAMP(datetime) as dt FROM messages ORDER BY id DESC LIMIT 5";
+		$sql = mysqli_query($dbc, $query) or die($messages['mysqli_query_err']);
 
 		//организуем вывод данных
-		while($row   = mysqli_fetch_assoc($sql2)) {
+		while($row   = mysqli_fetch_assoc($sql)) {
 			$table_name  = $row['name'];
 			$table_email = $row['email'];
 			$table_msg   = $row['msg'];
@@ -74,6 +72,6 @@ switch($data['action']){
 
 			echo "<p><strong>{$table_name}</strong> {$table_email}</p><p>{$table_date}</p>{$table_msg}<hr/>";
 		}
-		mysqli_close($dbc2);
+		mysqli_close($dbc);
 	break;
 }
