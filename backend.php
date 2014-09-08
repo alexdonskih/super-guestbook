@@ -17,7 +17,7 @@ $messages = array (
 $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die($messages['mysqli_cn_error']);
 
 //условие проверки существования таблицы
-$query = "CREATE TABLE messages IF NOT EXISTS(
+$query = "CREATE TABLE IF NOT EXISTS messages(
  	`id` INT(11) NOT NULL AUTO_INCREMENT ,
  	`name` VARCHAR( 25 ) NOT NULL DEFAULT  '',
  	`email` VARCHAR( 50 ) NOT NULL DEFAULT  '',
@@ -26,9 +26,7 @@ $query = "CREATE TABLE messages IF NOT EXISTS(
 	PRIMARY KEY ( `id` )
 	)";
 
-$sql = mysqli_query($dbc, $query);
-echo $messages['mysqli_table_cr'];
-mysqli_close($dbc);
+mysqli_query($dbc, $query);
 
 switch($data['action']){
 	case 'add_record':
