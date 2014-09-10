@@ -14,7 +14,7 @@ $messages = array (
 	'mysqli_query_err' => 'Ошибка формирования запроса к базе данных',
 	'mysqli_table_cr'  => 'Первый запуск скрипта. Таблица успешно создана'
 );
-$dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die($messages['mysqli_cn_error']);
+$dbc = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die($messages['mysqli_cn_error']);
 
 //условие проверки существования таблицы
 $query = "CREATE TABLE IF NOT EXISTS messages(
