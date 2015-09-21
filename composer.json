@@ -1,0 +1,11 @@
+{
+    "name": "paulzotoff/super-guestbook",
+    "description": "super-guestbook",
+    "authors": [
+        {
+            "name": "Paul Zotov",
+            "email": "paulzotoff@gmail.com"
+        }
+    ],
+    "require": {}
+}
