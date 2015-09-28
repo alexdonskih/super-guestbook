@@ -38,3 +38,9 @@ h2 {
 #form input[type="submit"] {
 	margin-top: 10px;
 }
+#messages {
+	margin-top: 40px;
+	background: #f8f8f8;
+	border: 1px solid #f9f9f9;
+	border-radius: 5px;
+}

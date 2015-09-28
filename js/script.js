@@ -21,5 +21,11 @@ $(document).ready(function(){
 			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
 		}
 	}
+
+	$.get("backend.php", {action: "get_messages"})
+	.done(function(data){
+		$('#messages').append(data);
+	});
+
 });
 
