@@ -9,11 +9,12 @@
 <body>
 <div id="guest">
 	<h2>Гостевуха</h2>
-		<form id="form" action="backend.php" method="GET">
+		<form id="form" action="" method="POST">
 			<input id="name" type="text" name="name" placeholder="Имя"/><br/>
 			<input id="email" type="text" name="email" placeholder="E-mail"/><br/>
 			<textarea id="msg" name="msg" placeholder="Сообщение"></textarea><br/>
-			<input id="submit" type="submit"/>
+			<!--<input id="submit" type="submit"/>-->
+			<button id="submit">Отправить</button>
 			<input type="hidden" name="action" value="add_record">
 		</form>
 	<div id="messages">
