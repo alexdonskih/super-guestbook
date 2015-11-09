@@ -22,12 +22,13 @@ var textarea    = document.getElementById('msg');
 		else {
 			 $.post("backend.php",
     			{
-        			name: "name_field.value",
+        			name: name_field.value,
         			email: email_field.value,
-        			msg: textarea.value
+        			msg: textarea.value,
+        			action: 'add_messages'
     			},
     		function(data, status){
-        		alert();
+        		console.log('Сообщение отправлено');
    			});
 		}
 	}

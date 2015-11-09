@@ -14,7 +14,7 @@
 			<input id="email" type="text" name="email" placeholder="E-mail"/><br/>
 			<textarea id="msg" name="msg" placeholder="Сообщение"></textarea><br/>
 			<!--<input id="submit" type="submit"/>-->
-			<button id="submit">Отправить</button>
+			<input type="button" id="submit" value="Отправить"/>
 			<input type="hidden" name="action" value="add_record">
 		</form>
 	<div id="messages">
