@@ -1,8 +1,25 @@
 $(document).ready(function(){
-var name_field  = document.getElementById('name');
-var email_field = document.getElementById('email');
-var textarea    = document.getElementById('msg');
-	// your js/jquery code here
+	var name_field  = document.getElementById('name');
+	var email_field = document.getElementById('email');
+	var textarea    = document.getElementById('msg');
+
+/*Дата и время*/
+
+/*Функция, добавляет возможность форматирования стоки даты и времени*/
+	Date.prototype.toLocaleFormat = function(format) {
+		var f = {y : this.getYear() + 1900,m : this.getMonth() + 1,d : this.getDate(),H : this.getHours(),M : this.getMinutes(),S : this.getSeconds()}
+		for(k in f)
+			format = format.replace('%' + k, f[k] < 10 ? "0" + f[k] : f[k]);
+		return format;
+	};
+
+/*Забираем и форматируем дату*/
+	var currentdate = new Date();
+	var datetime = currentdate.toLocaleFormat('%d-%m-%y %H:%M:%S')
+
+/*Конец блока обработки даты и времени*/
+
+/*AJAX POST messages*/
 	var submit_form = document.getElementById('submit');
 	submit_form.onclick=function(event) {
 		var check = [];
@@ -27,16 +44,17 @@ var textarea    = document.getElementById('msg');
         			msg: textarea.value,
         			action: 'add_messages'
     			},
-    		function(data, status){
-        		console.log('Сообщение отправлено');
-   			});
+    			function(data, status){
+    				console.log("Отправлено"),
+    				$('#messages').prepend("<p><strong>" + name_field.value + "</strong> " + email_field.value + "</p>" +"<p>"+ datetime +"</p>"+ textarea.value + "<hr/>")
+   				});
 		}
 	}
 
-	$.get("backend.php", {action: "get_messages"})
-	.done(function(data){
+/*AJAX GET messages*/
+	$.get("backend.php", {action: 'get_messages'})
+		.done (function (data, status) {
 		$('#messages').append(data);
 	});
-
 });
 
