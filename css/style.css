@@ -44,3 +44,21 @@ h2 {
 	border: 1px solid #f9f9f9;
 	border-radius: 5px;
 }
+#dialog {
+	width: 100%;
+	height: auto;
+	border-radius: 5px;
+	display: none;
+}
+.success {
+	color: #3C8C8F;
+	font-size: 14px;
+	background-color: #DFF0D8;
+	padding: 10px auto;
+}
+.error {
+	color: #A94442;
+	background-color: #F2DEDE;
+	font-size: 14px;
+	padding: 10px auto;
+}

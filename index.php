@@ -17,6 +17,10 @@
 			<input type="button" id="submit" value="Отправить"/>
 			<input type="hidden" name="action" value="add_record">
 		</form>
+	<div id="dialog">
+		<p id="success">Сообщение отправлено</p>
+		<p id="error">Ошибка</p>
+	</div>
 	<div id="messages">
 	</div>
 </div>

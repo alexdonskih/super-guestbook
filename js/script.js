@@ -19,6 +19,9 @@ $(document).ready(function(){
 
 /*Конец блока обработки даты и времени*/
 
+/*dialog box*/
+$('#dialog').hide();
+
 /*AJAX POST messages*/
 	var submit_form = document.getElementById('submit');
 	submit_form.onclick=function(event) {
@@ -37,17 +40,27 @@ $(document).ready(function(){
 			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
 		}
 		else {
-			 $.post("backend.php",
-    			{
-        			name: name_field.value,
+			$.ajax({
+  				method: "POST",
+  				url: "backend.php",
+  				data: {
+  					name: name_field.value,
         			email: email_field.value,
         			msg: textarea.value,
-        			action: 'add_messages'
-    			},
-    			function(data, status){
-    				console.log("Отправлено"),
-    				$('#messages').prepend("<p><strong>" + name_field.value + "</strong> " + email_field.value + "</p>" +"<p>"+ datetime +"</p>"+ textarea.value + "<hr/>")
-   				});
+        			action: 'add_messages' }
+			})
+  			.done(function( data, Status ) {
+    			console.log('Отправлено'),
+    			$('#messages').prepend("<p><strong>" + name_field.value + "</strong> " + email_field.value + "</p>" +"<p>"+ datetime +"</p>"+ textarea.value + "<hr/>")
+    			$('#success').addClass("success");
+    			$('#error').hide();
+    			$('#dialog').show();
+  			})
+  			.error(function() {
+  				$('#error').addClass("error");
+  				$('#success').hide();
+  				$('#dialog').show();
+  			});
 		}
 	}
 
@@ -56,5 +69,7 @@ $(document).ready(function(){
 		.done (function (data, status) {
 		$('#messages').append(data);
 	});
+
+
 });
 
