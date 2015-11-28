@@ -19,45 +19,45 @@ $(document).ready(function(){
 
 /*Конец блока обработки даты и времени*/
 
-/*dialog box*/
-$('#dialog').hide();
-
 /*AJAX POST messages*/
 	var submit_form = document.getElementById('submit');
 	submit_form.onclick=function(event) {
 		var check = [];
 		if(name_field.value == '') {
-			check.push("Имя");
+			check.push('Имя');
 		}
 		if (email_field.value == '') {
-			check.push("Email");
+			check.push('Email');
 		}
 		if (textarea.value == '') {
-			check.push("Текст");
+			check.push('Текст');
 		}
 		if(check.length != 0) {
-			alert('Пожалуйста, введите ' + check.join(', ') + '.');
+			check_msg = 'Пожалуйста, введите ' + check.join(', ') + '.';
+			alert(check_msg);
 			event.preventDefault ? event.preventDefault() : (event.returnValue=false);
 		}
 		else {
+		var ajax_msg = '<p><strong>' + name_field.value + '</strong> ' + email_field.value + '</p>' +'<p>'+ datetime +'</p>'+ textarea.value + '<hr/>';
 			$.ajax({
-  				method: "POST",
-  				url: "backend.php",
+  				method: 'POST',
+  				url: 'backend.php',
   				data: {
   					name: name_field.value,
         			email: email_field.value,
         			msg: textarea.value,
-        			action: 'add_messages' }
+        			action: 'add_messages',
+        			}
 			})
   			.done(function( data, Status ) {
     			console.log('Отправлено'),
-    			$('#messages').prepend("<p><strong>" + name_field.value + "</strong> " + email_field.value + "</p>" +"<p>"+ datetime +"</p>"+ textarea.value + "<hr/>")
-    			$('#success').addClass("success");
+    			$('#messages').prepend(ajax_msg);
+    			$('#success').addClass('success');
     			$('#error').hide();
     			$('#dialog').show();
   			})
   			.error(function() {
-  				$('#error').addClass("error");
+  				$('#error').addClass('error');
   				$('#success').hide();
   				$('#dialog').show();
   			});
@@ -65,11 +65,10 @@ $('#dialog').hide();
 	}
 
 /*AJAX GET messages*/
-	$.get("backend.php", {action: 'get_messages'})
+	$.get('backend.php', {action: 'get_messages'})
 		.done (function (data, status) {
 		$('#messages').append(data);
 	});
-
 
 });
 

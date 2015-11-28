@@ -44,29 +44,29 @@ switch($data['action']){
 
 			echo "<p><strong>{$table_name}</strong> {$table_email}</p><p>{$table_date}</p>{$table_msg}<hr/>";
 		}
-		mysqli_close($dbc);
-	break;
+break;
 }
 
-$form_name   = trim(strip_tags($data_post['name']));
-$form_email  = trim(strip_tags($data_post['email']));
-$form_msg    = trim(strip_tags($data_post['msg']));
-
+$data_post['action'] = (empty($data_post['action'])) ? false : $data_post['action'];
 switch($data_post['action']){
-	case 'add_messages':
+	case 'add_message':
+
+	$form_name   = trim(strip_tags($data_post['name']));
+	$form_email  = trim(strip_tags($data_post['email']));
+	$form_msg    = trim(strip_tags($data_post['msg']));
+
 	if(empty($form_name) || empty($form_email) || empty($form_msg)) {
 			echo $messages['form_error'];
 		} else {
-			// коннект к базе данных и запись в таблицу
 			$query = "INSERT INTO messages (name, email, msg) VALUES ('$form_name', '$form_email', '$form_msg')";
 			$sql = mysqli_query($dbc, $query);
 		}
 		if($sql) {
 			echo $messages['msg_send'];
-		}else {
+		} else {
 			echo $messaqes['msg_send_error'];
 		}
-mysqli_close($dbc);
 break;
 }
+mysqli_close($dbc);
 ?>
