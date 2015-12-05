@@ -50,7 +50,6 @@ $(document).ready(function(){
         			}
 			})
   			.done(function( data, Status ) {
-    			console.log('Отправлено'),
     			$('#messages').prepend(ajax_msg);
     			$('#success').addClass('success');
     			$('#error').hide();
