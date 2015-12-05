@@ -46,24 +46,29 @@ $(document).ready(function(){
   					name: name_field.value,
         			email: email_field.value,
         			msg: textarea.value,
-        			action: 'add_messages',
+        			action: 'add_message',
         			}
 			})
   			.done(function( data, Status ) {
     			$('#messages').prepend(ajax_msg);
+    			$('#name').val('');
+    			$('#email').val('');
+    			$('#msg').val('');
     			$('#success').addClass('success');
+    			$('#success').fadeOut(5000);
     			$('#error').hide();
     			$('#dialog').show();
   			})
   			.error(function() {
   				$('#error').addClass('error');
+  				$('#error').fadeOut(5000);
   				$('#success').hide();
   				$('#dialog').show();
   			});
 		}
 	}
 
-/*AJAX GET messages*/
+//AJAX GET messages
 	$.get('backend.php', {action: 'get_messages'})
 		.done (function (data, status) {
 		$('#messages').append(data);
