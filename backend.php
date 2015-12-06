@@ -2,10 +2,11 @@
 //назначаем константы для коннекта к БД
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'root');
 define('DB_NAME', 'guestbook');
 
 $data = $_GET;
+$data_post = $_POST;
 $messages = array (
 	'form_error'       => 'Пожалуйста, заполните все формы корректно',
 	'msg_send'         => 'Ваше сообщение успешно отправлено',
@@ -29,33 +30,6 @@ $query = "CREATE TABLE IF NOT EXISTS messages(
 mysqli_query($dbc, $query);
 
 switch($data['action']){
-	case 'add_record':
-
-		// задаем основные переменные
-		$form_name   = trim(strip_tags($data['name']));
-		$form_email  = trim(strip_tags($data['email']));
-		$form_msg    = trim(strip_tags($data['msg']));
-		$redir       = '<meta http-equiv="refresh" content="1; url='.$_SERVER['HTTP_REFERER'].'">';
-		echo $redir;
-
-		// проверка на пустоту
-		if(empty($form_name) || empty($form_email) || empty($form_msg)) {
-			echo $messages['form_error'];
-
-		} else {
-			// коннект к базе данных и запись в таблицу
-			$query = "INSERT INTO messages (name, email, msg) VALUES ('$form_name', '$form_email', '$form_msg')";
-			$sql = mysqli_query($dbc, $query);
-
-		if($sql) {
-			echo $messages['msg_send'];
-		}else {
-			echo $messaqes['msg_send_error'];
-		}
-		mysqli_close($dbc);
-		}
-	break;
-
 	case 'get_messages':
 
 		$query = "SELECT id, name, email, msg, UNIX_TIMESTAMP(datetime) as dt FROM messages ORDER BY id DESC LIMIT 5";
@@ -70,6 +44,29 @@ switch($data['action']){
 
 			echo "<p><strong>{$table_name}</strong> {$table_email}</p><p>{$table_date}</p>{$table_msg}<hr/>";
 		}
-		mysqli_close($dbc);
-	break;
+break;
 }
+
+$data_post['action'] = (empty($data_post['action'])) ? false : $data_post['action'];
+switch($data_post['action']){
+	case 'add_message':
+
+	$form_name   = trim(strip_tags($data_post['name']));
+	$form_email  = trim(strip_tags($data_post['email']));
+	$form_msg    = trim(strip_tags($data_post['msg']));
+
+	if(empty($form_name) || empty($form_email) || empty($form_msg)) {
+			echo $messages['form_error'];
+		} else {
+			$query = "INSERT INTO messages (name, email, msg) VALUES ('$form_name', '$form_email', '$form_msg')";
+			$sql = mysqli_query($dbc, $query);
+		}
+		if($sql) {
+			echo $messages['msg_send'];
+		} else {
+			echo $messaqes['msg_send_error'];
+		}
+break;
+}
+mysqli_close($dbc);
+?>
