@@ -7,6 +7,7 @@ define('DB_NAME', 'guestbook');
 
 $data = $_GET;
 $data_post = $_POST;
+$num_rec_per_page = 10; //ограничение числа записей на страницу
 $messages = array (
 	'form_error'       => 'Пожалуйста, заполните все формы корректно',
 	'msg_send'         => 'Ваше сообщение успешно отправлено',
@@ -31,20 +32,36 @@ mysqli_query($dbc, $query);
 
 switch($data['action']){
 	case 'get_messages':
-
-		$query = "SELECT id, name, email, msg, UNIX_TIMESTAMP(datetime) as dt FROM messages ORDER BY id DESC LIMIT 5";
+	if (isset($data['page'])) { $page  = $data['page']; } else { $page=1; }; //если из массива приходит страница, $page = её номеру, иначе = 1
+	$start_from = ($page-1) * $num_rec_per_page; //начало возвращаемой строки = номер страницы-1 * количество записей
+		$query = "SELECT id, name, email, msg, UNIX_TIMESTAMP(datetime) as dt FROM messages ORDER BY id DESC LIMIT $start_from, $num_rec_per_page";
 		$sql = mysqli_query($dbc, $query) or die($messages['mysqli_query_err']);
 
 		//организуем вывод данных
 		while($row   = mysqli_fetch_assoc($sql)) {
+			$table_id = $row['id'];
 			$table_name  = $row['name'];
 			$table_email = $row['email'];
 			$table_msg   = $row['msg'];
 			$table_date  = date('d-m-Y H:i:s',$row['dt']);
 
-			echo "<p><strong>{$table_name}</strong> {$table_email}</p><p>{$table_date}</p>{$table_msg}<hr/>";
+			echo "<p><strong>{$table_id}{$table_name}</strong> {$table_email}</p><p>{$table_date}</p>{$table_msg}<hr/>";
+
 		}
-break;
+		//вывод блока со страницами
+		$sql_count = "SELECT * FROM messages"; //выборка всех записей
+		$rs_result = mysqli_query($dbc, $sql_count); //стартует запрос
+		$total_records = mysqli_num_rows($rs_result);  //счетчик числа записей
+		$total_pages = ceil($total_records / $num_rec_per_page); //частное от деления кол-ва записей на число записей на страницу
+
+		//вывод страниц
+		echo "<a id='1' href='index.php?page=1'>".'|<'."</a> "; // Первая страница
+
+		for ($i=1; $i<=$total_pages; $i++) {
+            echo "<a id='".$i."' href='index.php?page=".$i."'>".$i."</a> "; //организуем цикл, где номер страницы изменяется до $total_pages
+		};
+		echo "<a id='$total_pages' href='index.php?page=$total_pages'>".'>|'."</a> "; // Последняя страница
+		break;
 }
 
 $data_post['action'] = (empty($data_post['action'])) ? false : $data_post['action'];
