@@ -75,7 +75,7 @@ $(document).ready(function(){
 //AJAX GET messages
 	$.get('backend.php', {
 		action: 'get_messages',
-		page: number() //через эту переменную передается номер страницы?
+		//page: number() //через эту переменную передается номер страницы?
 	})
 		.done (function (data, status) {
 		$('#messages').append(data);
