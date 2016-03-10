@@ -2,10 +2,15 @@ $(document).ready(function(){
 	var name_field  = document.getElementById('name');
 	var email_field = document.getElementById('email');
 	var textarea    = document.getElementById('msg');
+	//функция для возврата номера нужной страницы при клике по ссылке
+	function number() {
+		y = $('a').text();
+		return y;
+	}
 
 /*Дата и время*/
 
-/*Функция, добавляет возможность форматирования стоки даты и времени*/
+//Функция, добавляет возможность форматирования стоки даты и времени
 	Date.prototype.toLocaleFormat = function(format) {
 		var f = {y : this.getYear() + 1900,m : this.getMonth() + 1,d : this.getDate(),H : this.getHours(),M : this.getMinutes(),S : this.getSeconds()}
 		for(k in f)
@@ -13,13 +18,12 @@ $(document).ready(function(){
 		return format;
 	};
 
-/*Забираем и форматируем дату*/
+//Забираем и форматируем дату
 	var currentdate = new Date();
 	var datetime = currentdate.toLocaleFormat('%d-%m-%y %H:%M:%S')
 
-/*Конец блока обработки даты и времени*/
 
-/*AJAX POST messages*/
+/*AJAX POST & GET messages*/
 	var submit_form = document.getElementById('submit');
 	submit_form.onclick=function(event) {
 		var check = [];
@@ -69,10 +73,12 @@ $(document).ready(function(){
 	}
 
 //AJAX GET messages
-	$.get('backend.php', {action: 'get_messages'})
+	$.get('backend.php', {
+		action: 'get_messages',
+		//page: number() //через эту переменную передается номер страницы?
+	})
 		.done (function (data, status) {
 		$('#messages').append(data);
+		})
 	});
-
-});
 
